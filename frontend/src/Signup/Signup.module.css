@@ -1,0 +1,104 @@
+
+
+
+.container {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 20px;
+   
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.container h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-main);
+    text-align: center;
+    letter-spacing: -1px;
+}
+
+
+.container input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: #fcfcfd;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+}
+
+.container input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #fff;
+ 
+}
+
+.container input::placeholder {
+    color: #94a3b8;
+}
+
+
+.container button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 10px;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+}
+
+.container button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px); 
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+}
+
+.container button:active {
+    transform: translateY(0);
+}
+
+
+
+
+.loginLink {
+    text-align: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 5px;
+    transition: color 0.2s;
+}
+
+.loginLink:hover {
+    color: var(--primary-color);
+}
+@media (max-width: 480px) {
+    body{
+       
+    }
+    
+    .container {
+        margin: 40px 20px;
+        padding: 30px;
+         
+        
+    }
+}
+
