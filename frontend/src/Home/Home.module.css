@@ -1,0 +1,219 @@
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+}
+
+.container {
+    padding: 60px 20px;
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+}
+
+
+.areas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 800px; 
+}
+
+
+.area {
+    background: #ffffff;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.area:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary-color);
+}
+
+
+
+
+
+.area h2 {
+    flex: 1;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.textarea {
+    flex: 1;
+    min-height: 40px;
+    padding: 10px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-main);
+    background: #f8fafc;
+    resize: none;
+    outline: none;
+    transition: all 0.2s;
+    line-height: 1.4;
+}
+
+.textarea:focus {
+    border-color: var(--primary-color);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+
+.saveButton {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+}
+
+.saveButton:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+
+.area > button {
+    margin-left: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+
+.area > button:nth-of-type(1) {
+    background-color: #f1f5f9;
+    color: var(--text-muted);
+}
+
+.area > button:nth-of-type(1):hover {
+    background-color: #e2e8f0;
+    color: var(--text-main);
+}
+
+
+.area > button:nth-of-type(2) {
+    background-color: transparent;
+    color: #94a3b8;
+}
+
+.area > button:nth-of-type(2):hover {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+
+.createArea {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 30px;
+   
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.createArea input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.createArea input:focus {
+    border-color: var(--primary-color);
+}
+
+.createButton {
+    width: 100%;
+    background-color: var(--text-main);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.createButton:hover {
+    background-color: #000;
+    transform: translateY(-2px);
+}
+
+.cancelButton {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    text-decoration: underline;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+@media (max-width: 600px) {
+    .area {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+       
+    }
+    .area h2 {
+        font-size: 1.2rem;
+        display: flex;
+       justify-content: center;
+        width: 100%;
+    }
+     .area > button {
+        width: 100%;
+    }
+
+   
+}

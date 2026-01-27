@@ -25,6 +25,7 @@ app.use(
     }),
 );
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/areas', require('./routes/areaRoutes'));
 
 
 

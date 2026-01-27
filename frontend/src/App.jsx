@@ -4,6 +4,7 @@ import Login from './Login/Login.jsx'
 import { useEffect } from 'react'
 import { useNavigate, useLocation, Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
+import Home from './Home/Home.jsx'
 
 
 function App() {
@@ -59,9 +60,11 @@ function App() {
 
   return (
     <>
+    
     <Routes>
       <Route path="/signup" element={<Signup  user={user} />} />
       <Route path="/login" element={<Login user={user} />} />
+        <Route path="/" element={<Home user={user}  />} />
     </Routes>
     </>
   )
