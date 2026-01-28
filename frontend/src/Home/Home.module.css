@@ -198,6 +198,22 @@ h1 {
     font-size: 0.9rem;
     cursor: pointer;
 }
+.continueButton {
+    width: 150px;
+     background-color: var(--text-main);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 20px;
+}
+.continueButton:hover {
+    background-color: #000;
+    transform: translateY(-2px);
+}
 @media (max-width: 600px) {
     .area {
         flex-direction: column;

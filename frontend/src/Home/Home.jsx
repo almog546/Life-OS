@@ -2,6 +2,7 @@ import { use } from 'react';
 import styles from './Home.module.css';
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Home({ user }) {
@@ -9,8 +10,9 @@ export default function Home({ user }) {
     const [editingArea, setEditingArea] = useState(false); 
     const [newAreaName, setNewAreaName] = useState('');
     const [createAreaName, setCreateAreaName] = useState(false);
+    
     const [newArea, setNewArea] = useState('');
-   
+    const navigate = useNavigate();
     useEffect(() => {
         async function fetchAreas() {
             try {
@@ -91,7 +93,7 @@ export default function Home({ user }) {
         ) : null}<>
             <div className={styles.container}>
                <h1>Split your life into areas</h1>
-           
+              
                 <div className={styles.areas}>
                     {areas.map((area) => (
                         <div key={area.id} className={styles.area}>
@@ -130,6 +132,7 @@ export default function Home({ user }) {
                     ) : (
                         <button onClick={creatnewAreaChange} className={styles.createButton}>+ Create New Area</button>
                     )}
+                     <button className={styles.continueButton} onClick={() => navigate('/focus')} >Continue</button>
                 </div>
             </div>
             </>

@@ -19,6 +19,7 @@ model User {
   name      String?
   createdAt DateTime @default(now())
   areas     Area[]
+  focusSessions   Focus[]
   
 }
 model Area {
@@ -29,5 +30,17 @@ model Area {
   updatedAt DateTime @updatedAt
 
   user      User     @relation(fields: [userId], references: [id])
+  focusSessions Focus[]
   @@unique([id, userId])
+}
+model Focus {
+  id        Int      @id @default(autoincrement())
+  name     String
+  userId    Int
+  areaId    Int
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  area      Area     @relation(fields: [areaId], references: [id])
+  @@unique([name, userId, areaId])
 }

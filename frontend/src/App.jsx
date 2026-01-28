@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useNavigate, useLocation, Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Home from './Home/Home.jsx'
+import Focus from './Focus/Focus.jsx'
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
       <Route path="/signup" element={<Signup  user={user} />} />
       <Route path="/login" element={<Login user={user} />} />
         <Route path="/" element={<Home user={user}  />} />
+        <Route path="/focus" element={<Focus />} />
     </Routes>
     </>
   )
