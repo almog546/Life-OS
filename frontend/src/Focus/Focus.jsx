@@ -1,5 +1,8 @@
 import styles from './Focus.module.css';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect  } from 'react';
+
+import { Link } from 'react-router-dom';
+
 
 export default function Focus() {
     const [newFocus, setNewFocus] = useState([]);
@@ -7,6 +10,8 @@ export default function Focus() {
     const [name, setName] = useState('');
     const [areas, setAreas] = useState([]);
     const [areaId, setAreaId] = useState('');
+    
+
     useEffect(() => {
         async function fetchFocusItems() {
             try {
@@ -119,8 +124,13 @@ export default function Focus() {
                 )}
             </div>
             <div className={styles.navigationButtons}>
-            <button className={styles.skipButton}>Skip</button>
-            <button className={styles.continueButton}>Continue</button>
+            
+             <Link to="/dashboard" className={styles.skipButton}>
+                        Skip
+                    </Link>
+
+           
+            <Link to="/dashboard" className={styles.continueButton}>Continue </Link>
             </div>
         </div>
        

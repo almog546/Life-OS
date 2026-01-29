@@ -1,0 +1,20 @@
+-- CreateTable
+CREATE TABLE "TimeLog" (
+    "id" SERIAL NOT NULL,
+    "focusId" INTEGER NOT NULL,
+    "areaId" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "duration" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "TimeLog_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "TimeLog" ADD CONSTRAINT "TimeLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TimeLog" ADD CONSTRAINT "TimeLog_areaId_fkey" FOREIGN KEY ("areaId") REFERENCES "Area"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TimeLog" ADD CONSTRAINT "TimeLog_focusId_fkey" FOREIGN KEY ("focusId") REFERENCES "Focus"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

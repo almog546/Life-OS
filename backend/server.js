@@ -24,9 +24,12 @@ app.use(
         },
     }),
 );
+
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/areas', require('./routes/areaRoutes'));
 app.use('/api/focus', require('./routes/focusRoutes'));
+app.use('/api/timelogs', require('./routes/timeLogRoutes'));
 
 
 

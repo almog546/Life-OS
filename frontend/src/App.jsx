@@ -6,7 +6,8 @@ import { useNavigate, useLocation, Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Home from './Home/Home.jsx'
 import Focus from './Focus/Focus.jsx'
-
+import Dashboard from './Dashboard/Dashboard.jsx'
+import AddTimeLog from './AddTimeLog/AddTimeLog.jsx'
 
 function App() {
  const navigate = useNavigate();
@@ -66,8 +67,10 @@ function App() {
       <Route path="/signup" element={<Signup  user={user} />} />
       <Route path="/login" element={<Login user={user} />} />
         <Route path="/" element={<Home user={user}  />} />
-        <Route path="/focus" element={<Focus />} />
-    </Routes>
+        <Route path="/focus" element={<Focus user={user} />} />
+        <Route path="/dashboard" element={<Dashboard user={user} />} />
+        <Route path="/addtimelog" element={<AddTimeLog />} />
+            </Routes>
     </>
   )
 }

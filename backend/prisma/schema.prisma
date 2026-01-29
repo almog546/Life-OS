@@ -20,6 +20,7 @@ model User {
   createdAt DateTime @default(now())
   areas     Area[]
   focusSessions   Focus[]
+  timeLogs  TimeLog[]
   
 }
 model Area {
@@ -31,6 +32,7 @@ model Area {
 
   user      User     @relation(fields: [userId], references: [id])
   focusSessions Focus[]
+  timeLogs TimeLog[]
   @@unique([id, userId])
 }
 model Focus {
@@ -39,8 +41,25 @@ model Focus {
   userId    Int
   areaId    Int
   createdAt DateTime @default(now())
+  timeLogs TimeLog[]
 
   user      User     @relation(fields: [userId], references: [id])
   area      Area     @relation(fields: [areaId], references: [id])
   @@unique([name, userId, areaId])
+
+}
+model TimeLog {
+  id        Int      @id @default(autoincrement())
+  focusId   Int?
+  areaId    Int
+  userId    Int
+  duration  Int
+  description       String?
+  energyBefore Int?
+  energyAfter  Int?
+  attentionLevel Int?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  area      Area     @relation(fields: [areaId], references: [id])
+  focus     Focus?    @relation(fields: [focusId], references: [id])
 }
