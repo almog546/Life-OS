@@ -71,7 +71,7 @@ async function createTimeLogChange(e) {
         const response = await fetch('http://localhost:3000/api/timelogs', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({duration: Number(duration), focusId: Number(focusId), areaId: Number(areaId), description, energyBefore: energyBefore ? Number(energyBefore) : undefined, energyAfter: energyAfter ? Number(energyAfter) : undefined, attentionLevel: attentionLevel ? Number(attentionLevel) : undefined }),
+            body: JSON.stringify({duration: Number(duration), focusId: focusId ? Number(focusId) : undefined, areaId: Number(areaId), description, energyBefore: energyBefore ? Number(energyBefore) : undefined, energyAfter: energyAfter ? Number(energyAfter) : undefined, attentionLevel: attentionLevel ? Number(attentionLevel) : undefined }),
             credentials: 'include',
         });
         const data = await response.json();
@@ -90,6 +90,9 @@ async function createTimeLogChange(e) {
         console.error('Error creating time log:', error);
     }
 }
+
+
+
     return (
        <><div  className={styles.container}>
        <h1>Add Time Log</h1>
@@ -144,17 +147,8 @@ async function createTimeLogChange(e) {
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-                
-                <select
-                    value={focusId}
-                    onChange={(e) => setFocusId(e.target.value)}
-                    className={styles.select}
-                    >
-                    <option value="">Select Focus Item</option>
-                    {focusItems.map((item) => (
-                        <option key={item.id} value={item.id}>{item.name}</option>
-                    ))}
-                </select>
+                <div className={styles.selectContainer}>
+                     <h4 className={styles.selectAreaMessage}>Select Area first</h4>
                 <select
                     value={areaId}
                     onChange={(e) => setAreaId(e.target.value)}
@@ -166,9 +160,24 @@ async function createTimeLogChange(e) {
                         <option key={area.id} value={area.id}>{area.name}</option>
                     ))}
                 </select>
+                <select
+                    value={focusId}
+                    onChange={(e) => setFocusId(e.target.value)}
+                    className={styles.select}
+                    >
+                    <option value="">Select Focus Item</option>
+                    {focusItems.filter(focus => focus.areaId.toString() === areaId).map((focus) => (
+                        <option key={focus.id} value={focus.id}>{focus.name}</option>
+                    ))}
+                </select>
+                </div>
+                
+                
                 <button type="submit" className={styles.addButton}>Add Time Log</button>
             </form>
             </div>
        </>
     );
 }
+
+ 

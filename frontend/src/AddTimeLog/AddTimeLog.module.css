@@ -1,133 +1,110 @@
-
-
 .container {
-    max-width: 850px;
+    --primary-color: #6366f1; 
+    --primary-hover: #4f46e5;
+    --bg-gradient: var(--bg-gradient, linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%));
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+
+    max-width: 900px; 
     margin: 40px auto;
-    padding: 2rem;
-    font-family: 'Inter', sans-serif;
-    background-color: #fcfcfd;
-    border-radius: 24px;
-   
+    padding: 40px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 .container h1 {
-    font-size: 1.85rem;
-    font-weight: 700;
-    color: #101828;
-    margin-bottom: 2rem;
-    letter-spacing: -0.02em;
-    text-align: left;
-     text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 32px;
+    letter-spacing: -0.025em;
 }
 
 
 .form {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); 
-    gap: 1.25rem;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
     background: #ffffff;
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 10px 20px rgba(16, 24, 40, 0.05);
-    border: 1px solid #eaecf0;
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
 
 .form input,
 .select {
-    width: 100%;
-    height: 48px;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    background: #ffffff;
-    border: 1px solid #d0d5dd;
-    border-radius: 10px;
-    color: #101828;
+    flex: 1 1 280px; 
+    height: 52px;
+    padding: 0 16px;
+    font-size: 1rem;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    color: var(--text-main);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
     outline: none;
     box-sizing: border-box;
 }
 
 .form input:focus,
 .select:focus {
-    border-color: #7f56d9;
-    box-shadow: 0 0 0 4px rgba(158, 119, 237, 0.15);
+    border-color: var(--primary-color);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
 
-
-
-.form input[type="number"] {
-    grid-column: span 2;
-}
-
-.form input[type="text"] {
-    grid-column: span 4;
+.form input[placeholder*="What"] {
+    flex: 2 1 400px;
 }
 
 
-.select:nth-of-type(1),
-.select:nth-of-type(2),
-.select:nth-of-type(3) {
-    grid-column: span 2;
+.selectContainer {
+    flex: 1 1 100%; 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 24px;
+    background-color: #f1f5f9;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
 }
 
-
-.select:nth-of-type(4),
-.select:nth-of-type(5) {
-    grid-column: span 3;
+.selectAreaMessage {
+    flex: 1 1 100%;
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
-
-
 
 
 .addButton {
-    grid-column: span 6; 
-    height: 52px;
-    margin-top: 1rem;
-    background: #7f56d9;
+    flex: 1 1 100%;
+    height: 56px;
+    margin-top: 10px;
+    background-color: var(--primary-color);
     color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    border: 1px solid #7f56d9;
-    border-radius: 10px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    transition: all 0.3s ease;
 }
 
 .addButton:hover {
-    background: #6941c6;
-    border-color: #6941c6;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(105, 65, 198, 0.2);
-}
-
-.addButton:active {
-    transform: translateY(0);
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
 }
 
 
-.form input::placeholder {
-    color: #667085;
-}
-
-
-@media (max-width: 650px) {
-    .form {
-        grid-template-columns: 1fr;
-        padding: 1.5rem;
-    }
-    
-    .form input, 
-    .select, 
-    .addButton {
-        grid-column: span 1 !important;
-    }
-    
-    .container {
-        padding: 1rem;
-        margin: 10px;
-    }
+@media (max-width: 640px) {
+    .container { padding: 20px; }
+    .form { padding: 20px; }
+    .form input, .select { flex: 1 1 100%; }
 }
