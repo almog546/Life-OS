@@ -1,8 +1,9 @@
 import styles from './AddTimeLog.module.css';
 import { useState, useEffect  } from 'react';
+import { Navigate } from 'react-router-dom';
 
 
-export default function AddTimeLog() {
+export default function AddTimeLog({ user }) {
     const [timeLogs, setTimeLogs] = useState([]);
 const [duration, setDuration] = useState('');
 const [focusId, setFocusId] = useState('');
@@ -13,6 +14,7 @@ const [description, setDescription] = useState('');
 const [energyBefore, setEnergyBefore] = useState('');
 const [energyAfter, setEnergyAfter] = useState('');
 const [attentionLevel, setAttentionLevel] = useState('');
+
 
 useEffect(() => {
     async function fetchTimeLogs() {
@@ -94,7 +96,11 @@ async function createTimeLogChange(e) {
 
 
     return (
-       <><div  className={styles.container}>
+       <>
+       {!user ? (
+       <Navigate to="/signup" replace />
+         ) : null}
+       <div  className={styles.container}>
        <h1>Add Time Log</h1>
       
              <form className={styles.form} onSubmit={createTimeLogChange}>

@@ -69,7 +69,7 @@ function App() {
         <Route path="/" element={<Home user={user}  />} />
         <Route path="/focus" element={<Focus user={user} />} />
         <Route path="/dashboard" element={<Dashboard user={user} />} />
-        <Route path="/addtimelog" element={<AddTimeLog />} />
+        <Route path="/addtimelog" element={<AddTimeLog user={user} />} />
             </Routes>
     </>
   )

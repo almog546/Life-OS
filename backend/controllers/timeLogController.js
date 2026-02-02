@@ -91,8 +91,13 @@ async function createTimeLog(req, res) {
 async function getTimeLogs(req, res) {
     try { 
         const userId = req.session.userId;
+      
         const timeLogs = await prisma.timeLog.findMany({
             where: { userId },
+            distinct : ['areaId'],
+            
+            include: { area:{select: { name: true } } , focus: true },
+        
              orderBy: { createdAt: 'desc' },
         });
         res.status(200).json({ timeLogs });
@@ -102,4 +107,50 @@ async function getTimeLogs(req, res) {
          res.status(500).json({ message: 'Internal server error' });
     }
 }
-module.exports = { createTimeLog, getTimeLogs };
+async function getTodayTimeLogs(req, res) {
+    try { 
+        const userId = req.session.userId;
+        const now = new Date();
+       const startoftheDay = new Date(
+        Date.UTC(
+          now.getUTCFullYear(),
+          now.getUTCMonth(),
+          now.getUTCDate(),
+          0,
+          0,
+          0,
+          0
+        )
+      );
+      const endoftheDay = new Date(
+        Date.UTC(
+          now.getUTCFullYear(),
+          now.getUTCMonth(),
+          now.getUTCDate()+ 1,
+          0,
+          0,
+          0,
+          0
+        )
+      );
+        const timeLogs = await prisma.timeLog.findMany({
+            where: { 
+                userId,
+                createdAt: {
+                    gte: startoftheDay,
+                    lt: endoftheDay,
+                  },
+             },
+            include: { area:{select: { name: true } } , focus: true },
+              orderBy: { createdAt: 'desc' },
+        });
+        res.status(200).json({ timeLogs });
+    }
+    catch (error) {
+        console.error('Get Today TimeLogs Error:', error);
+         res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
+module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs };

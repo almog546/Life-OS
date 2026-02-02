@@ -1,10 +1,11 @@
 import styles from './Focus.module.css';
 import { useState, useEffect  } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 
 
-export default function Focus() {
+export default function Focus({ user }) {
     const [newFocus, setNewFocus] = useState([]);
     const [createfocusItem, setCreateFocusItem] = useState(false);
     const [name, setName] = useState('');
@@ -86,6 +87,9 @@ export default function Focus() {
 
     return (
        <>
+       {!user ? (
+       <Navigate to="/signup" replace />
+         ) : null}
         <div className={styles.container}>
             <h1>Is there anything you’re already spending time on? </h1>
             <div className={styles.focusList}>

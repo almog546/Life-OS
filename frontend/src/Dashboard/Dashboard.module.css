@@ -1,16 +1,24 @@
 :root {
-    --primary-color: #6366f1;
+    --primary-color: #6366f1; 
     --primary-hover: #4f46e5;
     --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     --text-main: #1e293b;
     --text-muted: #64748b;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .container {
-    padding: 60px 20px;
     min-height: 100vh;
+    padding: 4rem 2rem;
     background: var(--bg-gradient);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-main);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,47 +26,149 @@
 
 .container h1 {
     font-size: 3rem;
-    font-weight: 900;
-    margin-bottom: 10px;
-    color: var(--text-main);
-    letter-spacing: -0.05em;
+    font-weight: 800;
+    margin: 0;
+    width: 100%;
+    max-width: 1100px;
+    text-align: center;
 }
 
-.container h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
+.date {
+    width: 100%;
+    max-width: 1100px;
+    font-size: 1.1rem;
     color: var(--text-muted);
-    margin-bottom: 40px;
+    margin: 0.5rem 0 2.5rem 0;
+    font-weight: 500;
+    text-align: center;
 }
 
-
+.buttons {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+}
 
 .addButton {
-    background-color: var(--primary-color);
+    background: var(--primary-color);
     color: white;
-    padding: 12px 28px;
     border: none;
+    padding: 0.9rem 2rem;
     border-radius: 12px;
-    font-weight: 700;
-    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+    transition: 0.2s ease;
 }
 
 .addButton:hover {
-    background-color: var(--primary-hover);
+    background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+.viewButton {
+    background: white;
+    border: 1px solid #e2e8f0;
+    padding: 0.9rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 
-@media (max-width: 600px) {
-    .form {
-        flex-direction: column;
-        align-items: stretch;
+.todaySummary {
+    width: 100%;
+    max-width: 1100px;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+}
+
+
+.todayAtAGlanceTitle {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.todayAtAGlanceGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.totalDuration, .mostFrequentArea, .averageEnergyLevel {
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    padding: 2rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-top: 2rem; 
+    height: 160px; 
+}
+
+.totalDuration:hover, .mostFrequentArea:hover, .averageEnergyLevel:hover {
+    border-color: var(--primary-color);
+    background: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.todaySummary h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.todaySummary p {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-main);
+}
+
+
+.totalDuration p { color: var(--primary-color); }
+.mostFrequentArea p { color: #10b981; }
+.averageEnergyLevel p { color: #f59e0b; }
+
+
+.donutChart {
+    width: 60rem;
+    height: 35rem;
+    max-width: 1100px;
+    background: white;
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .todayAtAGlanceGrid {
+        grid-template-columns: 1fr;
+
     }
-    .addButton {
+    .totalDuration, .mostFrequentArea, .averageEnergyLevel {
+        margin-top: 1rem;
+        height: auto;
+    }
+    .donutChart {
         width: 100%;
+        height: auto;
+        padding: 2rem;
     }
 }
