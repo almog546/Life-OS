@@ -8,6 +8,7 @@ import Home from './Home/Home.jsx'
 import Focus from './Focus/Focus.jsx'
 import Dashboard from './Dashboard/Dashboard.jsx'
 import AddTimeLog from './AddTimeLog/AddTimeLog.jsx'
+import Navbar from './Navbar/Navbar.jsx'
 
 function App() {
  const navigate = useNavigate();
@@ -62,6 +63,7 @@ function App() {
 
   return (
     <>
+        <Navbar user={user} onLogout={onLogout} />
     
     <Routes>
       <Route path="/signup" element={<Signup  user={user} />} />
@@ -70,6 +72,8 @@ function App() {
         <Route path="/focus" element={<Focus user={user} />} />
         <Route path="/dashboard" element={<Dashboard user={user} />} />
         <Route path="/addtimelog" element={<AddTimeLog user={user} />} />
+       
+
             </Routes>
     </>
   )
