@@ -141,7 +141,7 @@ async function getTodayTimeLogs(req, res) {
                     lt: endoftheDay,
                   },
              },
-            include: { area:{select: { name: true } } , focus: true },
+            include: { area:{select: { name: true },  } , focus: true },
               orderBy: { createdAt: 'desc' },
         });
         res.status(200).json({ timeLogs });
@@ -151,6 +151,140 @@ async function getTodayTimeLogs(req, res) {
          res.status(500).json({ message: 'Internal server error' });
     }
 }
+async function getweekTimeLogs(req, res) {
+    try {
+        const userId = req.session.userId;
+        const now = new Date();
+        const  day = now.getUTCDay();
+        const diffToSunday = day;
+        const startOfWeek = new Date(
+            Date.UTC(
+                now.getUTCFullYear(),
+                now.getUTCMonth(),
+                now.getUTCDate() - diffToSunday,
+                0,
+                0,
+                0,
+                0
+            )
+        );
+        const endOfWeek = new Date(
+            Date.UTC(
+                now.getUTCFullYear(),
+                now.getUTCMonth(),
+                now.getUTCDate() - diffToSunday + 7,
+                0,
+                0,
+                0,
+                0
+            )
+        );
+        const timeLogs = await prisma.timeLog.findMany({
+            where: {
+                userId,
+                createdAt: {
+                    gte: startOfWeek,
+                    lt: endOfWeek,
+                  },
+            },
+            include: { area:{select: { name: true },  } , focus: true },
+              orderBy: { createdAt: 'desc' },
+        });
+        res.status(200).json({ timeLogs });
+    }
+    catch (error) {
+        console.error('Get Week TimeLogs Error:', error);
+         res.status(500).json({ message: 'Internal server error' });
+    }
+}
+async function getMonthTimeLogs(req, res) {
+    try {
+        const userId = req.session.userId;
+        const now = new Date();
+        const startOfMonth = new Date(
+            Date.UTC(
+                now.getUTCFullYear(),
+                now.getUTCMonth(),
+                1,
+                0,
+                0,
+                0,
+                0
+            )
+        );
+        const endOfMonth = new Date(
+            Date.UTC(
+                now.getUTCFullYear(),
+                now.getUTCMonth() + 1,
+                1,
+                0,
+                0,
+                0,
+                0 
+            )
+        );
+        const timeLogs = await prisma.timeLog.findMany({
+            where: {
+                userId,
+                createdAt: {
+                    gte: startOfMonth,
+                    lt: endOfMonth,
+                  },
+            },
+            include: { area:{select: { name: true },  } , focus: true },
+              orderBy: { createdAt: 'desc' },
+        });
+        res.status(200).json({ timeLogs });
+    }
+    catch (error) {
+        console.error('Get Month TimeLogs Error:', error);
+         res.status(500).json({ message: 'Internal server error' });
+    }
+}
+async function getYearTimeLogs(req, res) {
+    try {
+        const userId = req.session.userId;
+        const now = new Date();
+        const startOfYear = new Date(
+            Date.UTC(
+                now.getUTCFullYear(),
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+            )
+        );
+        const endOfYear = new Date(
+            Date.UTC(
+                now.getUTCFullYear() + 1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0 
+            )
+        );
+        const timeLogs = await prisma.timeLog.findMany({
+            where: {
+                userId,
+                createdAt: {
+                    gte: startOfYear,
+                    lt: endOfYear,
+                  },
+            },
+            include: { area:{select: { name: true },  } , focus: true },
+              orderBy: { createdAt: 'desc' },
+        });
+        res.status(200).json({ timeLogs });
+    }
+    catch (error) {
+        console.error('Get Year TimeLogs Error:', error);
+         res.status(500).json({ message: 'Internal server error' });
+    }
+}
 
-
-module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs };
+module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs, getweekTimeLogs, getMonthTimeLogs, getYearTimeLogs };
+module.exports.getYearTimeLogs = getYearTimeLogs;
