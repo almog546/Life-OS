@@ -2,7 +2,7 @@ import styles from './Login.module.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-export default function Login({user}) {
+export default function Login({user, handleShowText}) {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ export default function Login({user}) {
             if (!response.ok) {
                 throw new Error(data.message || 'Login failed');
             }
-            alert('Login successful!');
+            handleShowText('Login successful!');
             navigate('/');
         }
         catch (err) {

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-export default function Home({ user }) {
+export default function Home({ user, handleShowText }) {
     const [areas, setAreas] = useState([]);
     const [editingArea, setEditingArea] = useState(false); 
     const [newAreaName, setNewAreaName] = useState('');
@@ -48,6 +48,8 @@ export default function Home({ user }) {
             if (response.ok) {
                 setAreas(areas.map(area => area.id === id ? data.area : area));
                 setEditingArea(false);
+                handleShowText('Area updated successfully!');
+                
             }
         } catch (error) {
             console.error('Error updating area:', error);
@@ -62,6 +64,9 @@ export default function Home({ user }) {
             const data = await response.json();
             if (response.ok) {
                 setAreas(areas.filter(area => area.id !== id));
+                handleShowText('Area deleted successfully!');
+
+                
             }
         } catch (error) {
             console.error('Error deleting area:', error);
@@ -79,6 +84,7 @@ export default function Home({ user }) {
             if (response.ok) {
                 setAreas([...areas, data.area]);
                 setNewArea('');
+                handleShowText('Area created successfully!');
             }
         } catch (error) {
             console.error('Error creating area:', error);

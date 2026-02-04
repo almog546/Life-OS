@@ -10,12 +10,15 @@ import Dashboard from './Dashboard/Dashboard.jsx'
 import AddTimeLog from './AddTimeLog/AddTimeLog.jsx'
 import Navbar from './Navbar/Navbar.jsx'
 import ViewToday from './ViewToday/ViewToday.jsx'
+import Areas from './Areas/Areas.jsx'
+
 function App() {
  const navigate = useNavigate();
     const location = useLocation();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [logout, setLogout] = useState(false);
+     const [showText, setShowText] = useState('');
 
     async function onLogout() {
         try {
@@ -59,20 +62,30 @@ function App() {
         }
         fetchUser();
     }, [location]);
+
+    function handleShowText(text) {
+        setShowText(text);
+
+        setTimeout(() => {
+              setShowText('');
+            }, 2000);
+    }
  
 
   return (
     <>
+    {showText && <div className="globalToast">{showText}</div>}
         <Navbar user={user} onLogout={onLogout} />
     
     <Routes>
-      <Route path="/signup" element={<Signup  user={user} />} />
-      <Route path="/login" element={<Login user={user} />} />
-        <Route path="/" element={<Home user={user}  />} />
-        <Route path="/focus" element={<Focus user={user} />} />
-        <Route path="/dashboard" element={<Dashboard user={user} />} />
-        <Route path="/addtimelog" element={<AddTimeLog user={user} />} />
-        <Route path="/viewtoday" element={<ViewToday user={user} />} />
+      <Route path="/signup" element={<Signup  user={user} handleShowText={handleShowText} />} />
+      <Route path="/login" element={<Login user={user} handleShowText={handleShowText} />} />
+        <Route path="/" element={<Home user={user} handleShowText={handleShowText} />} />
+        <Route path="/focus" element={<Focus user={user} handleShowText={handleShowText} />} />
+        <Route path="/dashboard" element={<Dashboard user={user} handleShowText={handleShowText} />} />
+        <Route path="/addtimelog" element={<AddTimeLog user={user} handleShowText={handleShowText} />} />
+        <Route path="/viewtoday" element={<ViewToday user={user} handleShowText={handleShowText} />} />
+        <Route path="/areas" element={<Areas user={user} handleShowText={handleShowText} />} />
        
 
             </Routes>

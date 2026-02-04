@@ -3,7 +3,7 @@ import { useState, useEffect  } from 'react';
 import { Navigate } from 'react-router-dom';
 
 
-export default function AddTimeLog({ user }) {
+export default function AddTimeLog({ user, handleShowText }) {
     const [timeLogs, setTimeLogs] = useState([]);
 const [duration, setDuration] = useState('');
 const [focusId, setFocusId] = useState('');
@@ -79,7 +79,7 @@ async function createTimeLogChange(e) {
         const data = await response.json();
         if (response.ok) {
             setTimeLogs([...timeLogs, data.newTimeLog]);
-           
+            handleShowText('Time log created successfully!');
             setDuration('');
             setFocusId('');
             setAreaId('');

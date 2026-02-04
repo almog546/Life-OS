@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 
-export default function Focus({ user }) {
+export default function Focus({ user, handleShowText }) {
     const [newFocus, setNewFocus] = useState([]);
     const [createfocusItem, setCreateFocusItem] = useState(false);
     const [name, setName] = useState('');
@@ -64,6 +64,7 @@ export default function Focus({ user }) {
                 setNewFocus([...newFocus, data.newFocus]);
                 setName('');
                 setCreateFocusItem(false);
+                handleShowText('Focus item created successfully!');
             }
         } catch (error) {
             console.error('Error creating focus item:', error);
@@ -78,6 +79,7 @@ export default function Focus({ user }) {
             const data = await response.json();
             if (response.ok) {
                 setNewFocus(newFocus.filter(item => item.id !== id));
+                handleShowText('Focus item deleted successfully!');
             }
         } catch (error) {
             console.error('Error deleting focus item:', error);
