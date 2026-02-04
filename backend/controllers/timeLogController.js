@@ -1,3 +1,4 @@
+const e = require('express');
 const prisma = require('../prismaClient');
 async function createTimeLog(req, res) {
   try {
@@ -285,6 +286,57 @@ async function getYearTimeLogs(req, res) {
          res.status(500).json({ message: 'Internal server error' });
     }
 }
-
-module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs, getweekTimeLogs, getMonthTimeLogs, getYearTimeLogs };
-module.exports.getYearTimeLogs = getYearTimeLogs;
+async function updateTimeLog(req, res) {
+    try {
+        const userId = req.session.userId;
+        const timeLogId = parseInt(req.params.id);
+        const {
+            duration,
+            description,
+            energyBefore,
+            energyAfter,
+            attentionLevel,
+        } = req.body;
+      if(!duration){
+        return res.status(400).json({ message: 'All fields are required' });
+      }
+        const log = await prisma.timeLog.findFirst({
+  where: { id: timeLogId, userId },
+});
+      if (!log) {
+  return res.status(404).json({ message: 'TimeLog not found' });
+}
+      const updatedTimeLog = await prisma.timeLog.update({
+        where: { id: timeLogId},
+        data: {
+          duration,
+          description,
+          energyBefore,
+          energyAfter,
+          attentionLevel,
+        },
+      });
+      res.status(200).json({ updatedTimeLog });
+    }
+    catch (error) {
+        console.error('Update TimeLog Error:', error);
+         res.status(500).json({ message: 'Internal server error' });
+    }
+}
+async function deleteTimeLog(req, res) {
+    try {
+        const userId = req.session.userId;
+        const timeLogId = parseInt(req.params.id);
+        await prisma.timeLog.deleteMany({
+            where: { id: timeLogId, userId },
+        });
+        res.status(200).json({ message: 'Time log deleted' });
+    }
+    catch (error) {
+        console.error('Delete TimeLog Error:', error);
+         res.status(500).json({ message: 'Internal server error' });
+    }
+}
+      
+      
+module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs, getweekTimeLogs, getMonthTimeLogs, getYearTimeLogs, updateTimeLog, deleteTimeLog };

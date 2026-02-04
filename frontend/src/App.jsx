@@ -9,7 +9,7 @@ import Focus from './Focus/Focus.jsx'
 import Dashboard from './Dashboard/Dashboard.jsx'
 import AddTimeLog from './AddTimeLog/AddTimeLog.jsx'
 import Navbar from './Navbar/Navbar.jsx'
-
+import ViewToday from './ViewToday/ViewToday.jsx'
 function App() {
  const navigate = useNavigate();
     const location = useLocation();
@@ -72,6 +72,7 @@ function App() {
         <Route path="/focus" element={<Focus user={user} />} />
         <Route path="/dashboard" element={<Dashboard user={user} />} />
         <Route path="/addtimelog" element={<AddTimeLog user={user} />} />
+        <Route path="/viewtoday" element={<ViewToday user={user} />} />
        
 
             </Routes>

@@ -1,5 +1,5 @@
 import styles from './Dashboard.module.css';
-import { useState, useEffect, use  } from 'react';
+import { useState, useEffect   } from 'react';
 import { useNavigate,Navigate } from 'react-router-dom';
 import { useRef } from 'react';
 import DonutChart from '../DonutChart/DonutChart.jsx';
@@ -17,6 +17,9 @@ export default function Dashboard({ user }) {
     const date = new Date();
     
     const [chartKey, setChartKey] = useState(0);
+    const [weekChartKey, setWeekChartKey] = useState(0);
+    const [monthChartKey, setMonthChartKey] = useState(0);
+    const [yearChartKey, setYearChartKey] = useState(0);
 
     useEffect(() => {
         async function fetchTimeLogs() {
@@ -91,6 +94,21 @@ export default function Dashboard({ user }) {
 
     useEffect(() => {
         const onResize = () => setChartKey((prev) => prev + 1);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+     useEffect(() => {
+        const onResize = () => setWeekChartKey((prev) => prev + 1);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+     useEffect(() => {
+        const onResize = () => setMonthChartKey((prev) => prev + 1);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+     useEffect(() => {
+        const onResize = () => setYearChartKey((prev) => prev + 1);
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
@@ -196,7 +214,7 @@ export default function Dashboard({ user }) {
                     >
                         Add Time Log
                     </button>
-                    <button className={styles.viewButton}>View Today</button>
+                    <button className={styles.viewButton} onClick={() => navigate('/viewtoday')}>View Today</button>
                     </div>
                     <div className={styles.buttons}>
                     <button className={styles.viewButton} onClick={handleViewToday}>Today</button>
@@ -267,7 +285,7 @@ export default function Dashboard({ user }) {
                                 
 
                     <div className={styles.donutChart} style={{marginTop: '2rem'}}> 
-                    <DonutChart key={chartKey} timeLogs={timeLogsWeek}   />
+                    <DonutChart key={weekChartKey} timeLogs={timeLogsWeek}   />
                     </div>
                                 </ul>
                             )}
@@ -300,7 +318,7 @@ export default function Dashboard({ user }) {
                                 
 
                     <div className={styles.donutChart} style={{marginTop: '2rem'}}> 
-                    <DonutChart key={chartKey} timeLogs={timeLogsMonth}   />
+                    <DonutChart key={monthChartKey} timeLogs={timeLogsMonth}   />
                     </div>
                                 </ul>
                             )}
@@ -333,7 +351,7 @@ export default function Dashboard({ user }) {
                                 
 
                     <div className={styles.donutChart} style={{marginTop: '2rem'}}> 
-                    <DonutChart key={chartKey} timeLogs={timeLogsYear}   />
+                    <DonutChart key={yearChartKey} timeLogs={timeLogsYear}   />
                     </div>
                                 </ul>
                             )}

@@ -5,30 +5,11 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { useState, useEffect  } from 'react';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function DonutChart() {
-    const [timeLogs, setTimeLogs] = useState([]);
-    useEffect(() => {
-            async function fetchTimeLogs() {
-                try {
-                    const response = await fetch('http://localhost:3000/api/timelogs/today', {    
-                        method: 'GET',
-                        credentials: 'include',
-                    });
-                    const data = await response.json();
-                    if (response.ok) {
-                        setTimeLogs(data.timeLogs);
-                    }
-                } catch (error) {
-                    console.error('Error fetching time logs:', error);
-                }
-            }
-            fetchTimeLogs();
-        }, []);
-    
+export default function DonutChart({ timeLogs }) {
     const areaDurations = timeLogs.reduce((acc, log) => {
         const areaName = log.area.name;
         if (!acc[areaName]) {
