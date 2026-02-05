@@ -337,6 +337,37 @@ async function deleteTimeLog(req, res) {
          res.status(500).json({ message: 'Internal server error' });
     }
 }
+async function updateareaid(req, res) {
+    try {
+        const userId = req.session.userId;
+        const oldAreaId = parseInt(req.params.id);
+        const newAreaId = parseInt(req.body.areaId);
+        
+        if (!newAreaId) {
+            return res.status(400).json({ message: 'Area ID is required' });
+        }
+        const areaExists = await prisma.area.findFirst({
+            where: { id: newAreaId, userId },
+        });
+        if (!areaExists) {
+            return res.status(404).json({ message: 'Area not found' });
+        }
+        if (oldAreaId === newAreaId) {
+            return res.status(400).json({ message: 'Old Area ID and New Area ID cannot be the same' });
+          
+        }
+        const updatedTimeLog = await prisma.timeLog.updateMany({
+            where: { areaId: oldAreaId, userId },
+            data: { areaId: newAreaId },
+        });
+
+        res.status(200).json({updatedTimeLog });
+    }
+    catch (error) {
+        console.error('Update TimeLog Area Error:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
       
       
-module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs, getweekTimeLogs, getMonthTimeLogs, getYearTimeLogs, updateTimeLog, deleteTimeLog };
+module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs, getweekTimeLogs, getMonthTimeLogs, getYearTimeLogs, updateTimeLog, deleteTimeLog, updateareaid };
