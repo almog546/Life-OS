@@ -1,0 +1,123 @@
+.container {
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+.toggle {
+    display: flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    margin-bottom: 3rem;
+}
+
+.toggle span {
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.toggle span:hover {
+    background: #f1f5f9;
+    color: var(--text-main);
+}
+
+.toggle span.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.insight {
+    max-width: 900px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.insightItem {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    font-size: 1.05rem;
+    color: var(--text-main);
+    font-weight: 500;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 4px solid var(--primary-color);
+    line-height: 1.6;
+}
+
+.insightItem:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.insight > p {
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .toggle {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .toggle span {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .insight {
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+
+    .insightItem {
+        padding: 1.5rem;
+    }
+}

@@ -11,6 +11,7 @@ import AddTimeLog from './AddTimeLog/AddTimeLog.jsx'
 import Navbar from './Navbar/Navbar.jsx'
 import ViewToday from './ViewToday/ViewToday.jsx'
 import Areas from './Areas/Areas.jsx'
+import InsightsPage from './InsightsPage/InsightsPage.jsx'
 
 function App() {
  const navigate = useNavigate();
@@ -86,6 +87,7 @@ function App() {
         <Route path="/addtimelog" element={<AddTimeLog user={user} handleShowText={handleShowText} />} />
         <Route path="/viewtoday" element={<ViewToday user={user} handleShowText={handleShowText} />} />
         <Route path="/areas" element={<Areas user={user} handleShowText={handleShowText} />} />
+        <Route path="/insights" element={<InsightsPage user={user} handleShowText={handleShowText} />} />
        
 
             </Routes>

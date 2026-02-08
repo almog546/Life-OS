@@ -17,6 +17,7 @@ export default function Navbar({user, onLogout}) {
             <Link to ="/dashboard">Dashboard</Link>
             <Link to ="/focus">Focus</Link>
             <Link to ="/addtimelog">Add Time Log</Link>
+            <Link to ="/insights">Insights</Link>
             
            </div>
            <div className={styles.userSection}>

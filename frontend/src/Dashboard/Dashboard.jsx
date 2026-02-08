@@ -13,6 +13,7 @@ export default function Dashboard({ user }) {
     const [timeLogsWeek, setTimeLogsWeek] = useState([]);
     const [timeLogsMonth, setTimeLogsMonth] = useState([]);
     const [timeLogsYear, setTimeLogsYear] = useState([]);
+    const [timeLogsAlltime, setTimeLogsAlltime] = useState([]);
     const navigate = useNavigate();
     const date = new Date();
     
@@ -20,6 +21,26 @@ export default function Dashboard({ user }) {
     const [weekChartKey, setWeekChartKey] = useState(0);
     const [monthChartKey, setMonthChartKey] = useState(0);
     const [yearChartKey, setYearChartKey] = useState(0);
+    const [alltimeChartKey, setAlltimeChartKey] = useState(0);
+
+
+useEffect(() => {
+        async function fetchTimeLogs() {
+            try {
+                const response = await fetch('http://localhost:3000/api/timelogs', {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    setTimeLogsAlltime(data.timeLogs);
+                }
+            } catch (error) {
+                console.error('Error fetching time logs:', error);
+            }
+        }
+        fetchTimeLogs();
+    }, []);
 
     useEffect(() => {
         async function fetchTimeLogs() {
@@ -112,6 +133,11 @@ export default function Dashboard({ user }) {
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
+        useEffect(() => {
+        const onResize = () => setAlltimeChartKey((prev) => prev + 1);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
 
     function totalDurationWeek() {
         
@@ -129,6 +155,9 @@ export default function Dashboard({ user }) {
         
         return timeLogs.reduce((total, log) => total + log.duration, 0);
     }
+        function totalDurationAlltime() {
+            return timeLogsAlltime.reduce((total, log) => total + log.duration, 0);
+        }
    function mostFrequentArea(logs) {
         const areaCount = Object.values(
             logs.reduce((acc, log) => {
@@ -167,6 +196,11 @@ export default function Dashboard({ user }) {
                         const totalEnergy = timeLogsYear.reduce((total, log) => total + log.energyAfter, 0);
                         return (totalEnergy / timeLogsYear.length).toFixed(1);
                     }
+                        function afteravarageEnergyLevelalltime() {
+                        if (timeLogsAlltime.length === 0) return 0;
+                        const totalEnergy = timeLogsAlltime.reduce((total, log) => total + log.energyAfter, 0);
+                        return (totalEnergy / timeLogsAlltime.length).toFixed(1);
+                    }
                 function lastactivity(logs) {
                     const
                         lastLog = logs.reduce((latest, log) => {
@@ -187,6 +221,14 @@ export default function Dashboard({ user }) {
                 }
                 function handleViewYear() {
                     setTogglelogs('year');
+                }
+                function handleViewAlltime() {
+                    setTogglelogs('alltime');
+                }
+                const convertMinutesToHoursAndMinutes = (minutes) => {
+                    const hrs = Math.floor(minutes / 60);
+                    const mins = minutes % 60;
+                    return `${hrs} hrs ${mins} mins`;
                 }
 
 
@@ -221,6 +263,7 @@ export default function Dashboard({ user }) {
                     <button className={styles.viewButton} onClick={handleViewWeek}>Weekly</button>
                     <button className={styles.viewButton} onClick={handleViewMonth}>Monthly</button>
                     <button className={styles.viewButton} onClick={handleViewYear}>Yearly</button>
+                    <button className={styles.viewButton} onClick={handleViewAlltime}>All Time</button>
                     </div>
                     {togglelogs === 'today' && (
                         <div>
@@ -234,7 +277,7 @@ export default function Dashboard({ user }) {
                         <div className={styles.todayAtAGlanceGrid}>
                             <div className={styles.totalDuration}>
                                 <h3>Total Focused Time</h3>
-                                <p>{totalDurationdaily()} minutes</p>
+                                <p>{convertMinutesToHoursAndMinutes(totalDurationdaily())}</p>
                             </div>
                             <div className={styles.mostFrequentArea}>
                                 <h3>Most Frequent Area</h3>
@@ -270,7 +313,7 @@ export default function Dashboard({ user }) {
                         <div className={styles.todayAtAGlanceGrid}>
                             <div className={styles.totalDuration}>
                                 <h3>Total Focused Time</h3>
-                                <p>{totalDurationWeek()} minutes</p>
+                                <p>{convertMinutesToHoursAndMinutes(totalDurationWeek())}</p>
                             </div>
                             <div className={styles.mostFrequentArea}>
                                 <h3>Most Frequent Area</h3>
@@ -303,7 +346,7 @@ export default function Dashboard({ user }) {
                         <div className={styles.todayAtAGlanceGrid}>
                             <div className={styles.totalDuration}>
                                 <h3>Total Focused Time</h3>
-                                <p>{totalDurationMonth()} minutes</p>
+                                <p>{convertMinutesToHoursAndMinutes(totalDurationMonth())}</p>
                             </div>
                             <div className={styles.mostFrequentArea}>
                                 <h3>Most Frequent Area</h3>
@@ -336,7 +379,7 @@ export default function Dashboard({ user }) {
                         <div className={styles.todayAtAGlanceGrid}>
                             <div className={styles.totalDuration}>
                                 <h3>Total Focused Time</h3>
-                                <p>{totalDurationYear()} minutes</p>
+                                <p>{convertMinutesToHoursAndMinutes(totalDurationYear())}</p>
                             </div>
                             <div className={styles.mostFrequentArea}>
                                 <h3>Most Frequent Area</h3>
@@ -352,6 +395,39 @@ export default function Dashboard({ user }) {
 
                     <div className={styles.donutChart} style={{marginTop: '2rem'}}> 
                     <DonutChart key={yearChartKey} timeLogs={timeLogsYear}   />
+                    </div>
+                                </ul>
+                            )}
+                        </div>
+                    )}
+                    {togglelogs === 'alltime' && (
+                        <div>
+                            
+                            {timeLogsAlltime.length === 0 ? (
+                                <p>No time logs for all time.</p>
+                            ) : (
+                                  <ul className={styles.timeLogList}>
+                    <div className={styles.todaySummary}>
+                        <h2 className={styles.todayAtAGlanceTitle}>All Time at a Glance</h2>
+                        <div className={styles.todayAtAGlanceGrid}>
+                            <div className={styles.totalDuration}>
+                                <h3>Total Focused Time</h3>
+                                <p>{convertMinutesToHoursAndMinutes(totalDurationAlltime())}</p>
+                            </div>
+                            <div className={styles.mostFrequentArea}>
+                                <h3>Most Frequent Area</h3>
+                                <p>{mostFrequentArea(timeLogsAlltime)}</p>
+                            </div>
+                            <div className={styles.averageEnergyLevel}>
+                                <h3>Average Energy After Session</h3>
+                                <p>5/{afteravarageEnergyLevelalltime()}</p>
+                            </div>
+                        </div>
+                    </div>
+                                
+
+                    <div className={styles.donutChart} style={{marginTop: '2rem'}}> 
+                    <DonutChart key={alltimeChartKey} timeLogs={timeLogsAlltime}   />
                     </div>
                                 </ul>
                             )}

@@ -1,5 +1,9 @@
+import { Navigate } from 'react-router-dom';
 import styles from './Areas.module.css';
 import { useState, useEffect } from 'react';
+
+
+
 
 export default function Areas({ user , handleShowText}) {
   const [timeLogs, setTimeLogs] = useState([]);
@@ -119,7 +123,11 @@ async function transferAndDelete(id, newAreaId){
 
 
       
-  return (
+  return (<>
+  {!user ? (
+   <Navigate to="/signup" replace />
+  ) : null}
+
     <div className={styles.container}>
       <h1 className={styles.title}>Areas</h1>
       <p className={styles.description}>Manage how your time is categorized.</p>
@@ -173,5 +181,5 @@ async function transferAndDelete(id, newAreaId){
         </div>
         
     </div>
-  );
+  </>);
 }
