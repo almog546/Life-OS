@@ -1,123 +1,242 @@
 .container {
     min-height: 100vh;
     background: var(--bg-gradient);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 3rem 2rem;
+    direction: ltr;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 2.8rem;
+    font-weight: 800;
     color: var(--text-main);
     margin-bottom: 0.5rem;
-}
-
-.header p {
-    color: var(--text-muted);
-    font-size: 1.05rem;
+    letter-spacing: -0.5px;
 }
 
 .toggle {
     display: flex;
-    gap: 0.5rem;
-    background: white;
-    padding: 0.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    justify-content: center;
+    gap: 0.75rem;
     margin-bottom: 3rem;
+    flex-wrap: wrap;
 }
 
 .toggle span {
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
+    padding: 1rem 2.5rem;
+    background: white;
     color: var(--text-muted);
-    transition: all 0.2s;
-    user-select: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 2px solid transparent;
 }
 
 .toggle span:hover {
-    background: #f1f5f9;
-    color: var(--text-main);
-}
-
-.toggle span.active {
     background: var(--primary-color);
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
 }
 
+
 .insight {
-    max-width: 900px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .insightItem {
     background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    font-size: 1.05rem;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    font-size: 1.1rem;
     color: var(--text-main);
     font-weight: 500;
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border-left: 4px solid var(--primary-color);
-    line-height: 1.6;
+    line-height: 1.7;
+    transition: all 0.3s ease;
+    border-left: 5px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.insightItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-hover) 100%);
 }
 
 .insightItem:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: translateX(8px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+    background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
 }
 
-.insight > p {
+.insight > span {
+    display: inline-block;
+    padding: 1.25rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 1rem 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.insight > span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.insight > span:hover::before {
+    left: 100%;
+}
+
+.insight > span:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+}
+
+.insight > span:active {
+    transform: translateY(-1px);
+}
+
+.charts,
+.chartsTwo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding: 0;
+}
+
+.chartContainer {
     background: white;
-    padding: 3rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    text-align: center;
-    grid-column: 1 / -1;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(99, 102, 241, 0.08);
+}
+
+.chartContainer:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
+
+.chartsTwo {
+    margin-top: 2.5rem;
+}
+
+@media (max-width: 1200px) {
+    .charts,
+    .chartsTwo {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 }
 
 @media (max-width: 768px) {
     .container {
-        padding: 1rem;
+        padding: 2rem 1rem;
     }
 
     .header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
     .toggle {
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 0.5rem;
     }
 
     .toggle span {
-        padding: 0.6rem 1.2rem;
+        padding: 0.85rem 1.8rem;
         font-size: 0.95rem;
     }
 
-    .insight {
-        grid-template-columns: 1fr;
-        padding: 0;
+    .insightItem {
+        padding: 1.5rem 1.8rem;
+        font-size: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .insight > span {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0.75rem 0;
+        padding: 1rem 2rem;
+    }
+
+    .charts,
+    .chartsTwo {
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .chartContainer {
+        padding: 1.8rem;
+    }
+
+    .chartsTwo {
+        margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .header h1 {
+        font-size: 1.9rem;
+    }
+
+    .toggle span {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
     }
 
     .insightItem {
+        padding: 1.25rem 1.5rem;
+        font-size: 0.95rem;
+        border-radius: 12px;
+    }
+
+    .insight > span {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
+        border-radius: 12px;
+    }
+
+    .chartContainer {
         padding: 1.5rem;
+        border-radius: 12px;
     }
 }
