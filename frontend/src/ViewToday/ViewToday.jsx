@@ -1,6 +1,7 @@
 import styles from './ViewToday.module.css';
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import api from '../api/axios';
 
 
 export default function ViewToday({ user }) {
@@ -16,13 +17,9 @@ export default function ViewToday({ user }) {
     useEffect(() => {
         async function fetchTimeLogs() {
             try {
-                const response = await fetch('http://localhost:3000/api/timelogs/today', {    
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setTimeLogs(data.timeLogs);
+                const response = await api.get('/api/timelogs/today');
+                if (response.status === 200) {
+                    setTimeLogs(response.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching time logs:', error);
@@ -34,11 +31,8 @@ export default function ViewToday({ user }) {
     
 
     try {
-        const response = await fetch(`http://localhost:3000/api/timelogs/${id}`, {
-            method: 'DELETE',
-            credentials: 'include',
-        });
-        if (response.ok) {
+        const response = await api.delete(`/api/timelogs/${id}`);
+        if (response.status === 200) {
             setTimeLogs(prev => prev.filter((log) => log.id !== id));
         }
     } catch (error) {
@@ -49,28 +43,19 @@ export default function ViewToday({ user }) {
 async function handleEditLog(id,e) {
     e.preventDefault();
     try {
-        const response = await fetch(`http://localhost:3000/api/timelogs/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({
-                description: editedDescription,
-                duration: editedDuration === '' ? undefined : Number(editedDuration),
-                energyBefore: editedEnergyBefore === '' ? undefined : Number(editedEnergyBefore),
-                energyAfter: editedEnergyAfter === '' ? undefined : Number(editedEnergyAfter),
-                attentionLevel: editedAttentionLevel === '' ? undefined : Number(editedAttentionLevel),
-              
-            }),
+        const response = await api.put(`/api/timelogs/${id}`, {
+            description: editedDescription,
+            duration: editedDuration === '' ? undefined : Number(editedDuration),
+            energyBefore: editedEnergyBefore === '' ? undefined : Number(editedEnergyBefore),
+            energyAfter: editedEnergyAfter === '' ? undefined : Number(editedEnergyAfter),
+            attentionLevel: editedAttentionLevel === '' ? undefined : Number(editedAttentionLevel),
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
+        if (response.status === 200) {
             window.location.reload();
             setTimeLogs(prev =>
-                prev.map((log) => (log.id === id ? data.updatedTimeLog : log))
+                prev.map((log) => (log.id === id ? response.data.updatedTimeLog : log))
             );
-            
         }
     } catch (error) {
         console.error('Error editing time log:', error);

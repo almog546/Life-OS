@@ -2,6 +2,7 @@ import styles from './Signup.module.css';
 import { useState } from 'react';
 import * as yup from 'yup';
 import { Navigate, Link,useNavigate } from 'react-router-dom';
+import api from '../api/axios';
 
 export default function Signup({ user }) {
     const navigate = useNavigate();
@@ -32,15 +33,9 @@ export default function Signup({ user }) {
         setLoading(true);
         try {
             await signupSchema.validate({ email, password, name }, { abortEarly: false });
-            const response = await fetch('http://localhost:3000/api/auth/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, name }),
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.message || 'Signup failed');
+            const response = await api.post('/api/auth/signup', { email, password, name });
+            if (response.status !== 201 && response.status !== 200) {
+                throw new Error(response.data?.message || 'Signup failed');
             }
             navigate('/login');
         }

@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import styles from './Areas.module.css';
 import { useState, useEffect } from 'react';
+import api from "../api/axios";
 
 
 
@@ -18,13 +19,9 @@ const [areaId, setAreaId] = useState('');
   useEffect(() => {
         async function fetchTimeLogs() {
             try {
-                const response = await fetch('http://localhost:3000/api/timelogs', {    
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setTimeLogs(data.timeLogs);
+                const response = await api.get('/api/timelogs');
+                if (response.status === 200) {
+                    setTimeLogs(response.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching time logs:', error);
@@ -35,13 +32,9 @@ const [areaId, setAreaId] = useState('');
     useEffect(() => {
         async function fetchAreas() {
             try {
-                const response = await fetch('http://localhost:3000/api/areas', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setAreas(data.areas);
+                const response = await api.get('/api/areas');
+                if (response.status === 200) {
+                    setAreas(response.data.areas);
                 }
             } catch (error) {
                 console.error('Error fetching areas:', error);
@@ -66,12 +59,8 @@ const [areaId, setAreaId] = useState('');
 
 async function deleteArea(id){
     try {
-        const response = await fetch(`http://localhost:3000/api/areas/${id}`, {
-            method: 'DELETE',
-            credentials: 'include',
-        });
-        const data = await response.json();
-        if (response.ok) {
+        const response = await api.delete(`/api/areas/${id}`);
+        if (response.status === 200) {
             setTimeLogs(prev => prev.filter((log) => log.areaId !== id));
             handleShowText('Area deleted successfully!');
         }
@@ -81,15 +70,8 @@ async function deleteArea(id){
 }
 async function editArea(id){
     try {
-        const response = await fetch(`http://localhost:3000/api/areas/${id}`, {
-            method: 'PUT',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: newAreaName }),
-        });
-        const data = await response.json();
-        if (response.ok) {
-            
+        const response = await api.put(`/api/areas/${id}`, { name: newAreaName });
+        if (response.status === 200) {
             handleShowText('Area edited successfully!');
         }
     } catch (error) {
@@ -104,17 +86,11 @@ function handleDeleteConfirm(areaId){
 }
 async function transferAndDelete(id, newAreaId){
     try {
-        const response = await fetch(`http://localhost:3000/api/timelogs/${id}/transfer`, {
-            method: 'PUT',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ areaId: newAreaId }),
-        });
-        const data = await response.json();
-        if (response.ok) {
+        const response = await api.put(`/api/timelogs/${id}/transfer`, { areaId: newAreaId });
+        if (response.status === 200) {
             handleShowText('Area transferred successfully!');
-             deleteArea(id);
-             window.location.reload();
+            deleteArea(id);
+            window.location.reload();
         }
     } catch (error) {
         console.error('Error transferring area:', error);

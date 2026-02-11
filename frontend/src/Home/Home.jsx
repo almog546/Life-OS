@@ -3,6 +3,7 @@ import styles from './Home.module.css';
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import api from '../api/axios';
 
 
 
@@ -18,13 +19,9 @@ export default function Home({ user, handleShowText }) {
     useEffect(() => {
         async function fetchAreas() {
             try {
-                const response = await fetch('http://localhost:3000/api/areas', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setAreas(data.areas);
+                const response = await api.get('/api/areas');
+                if (response.status === 200) {
+                    setAreas(response.data.areas);
                 }
             } catch (error) {
                 console.error('Error fetching areas:', error);
@@ -38,18 +35,11 @@ export default function Home({ user, handleShowText }) {
     }
     async function updateAreaName(id){
         try {
-            const response = await fetch(`http://localhost:3000/api/areas/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: newAreaName }),
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setAreas(areas.map(area => area.id === id ? data.area : area));
+            const response = await api.put(`/api/areas/${id}`, { name: newAreaName });
+            if (response.status === 200) {
+                setAreas(areas.map(area => area.id === id ? response.data.area : area));
                 setEditingArea(false);
                 handleShowText('Area updated successfully!');
-                
             }
         } catch (error) {
             console.error('Error updating area:', error);
@@ -57,16 +47,10 @@ export default function Home({ user, handleShowText }) {
     }
     async function deleteArea(id){
         try {
-            const response = await fetch(`http://localhost:3000/api/areas/${id}`, {
-                method: 'DELETE',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
+            const response = await api.delete(`/api/areas/${id}`);
+            if (response.status === 200) {
                 setAreas(areas.filter(area => area.id !== id));
                 handleShowText('Area deleted successfully!');
-
-                
             }
         } catch (error) {
             console.error('Error deleting area:', error);
@@ -74,15 +58,9 @@ export default function Home({ user, handleShowText }) {
     }
     async function createArea(){
         try {
-            const response = await fetch('http://localhost:3000/api/areas', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: newArea }),
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setAreas([...areas, data.area]);
+            const response = await api.post('/api/areas', { name: newArea });
+            if (response.status === 201 || response.status === 200) {
+                setAreas([...areas, response.data.area]);
                 setNewArea('');
                 handleShowText('Area created successfully!');
             }

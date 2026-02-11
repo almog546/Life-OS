@@ -13,6 +13,7 @@ import ViewToday from './ViewToday/ViewToday.jsx'
 import Areas from './Areas/Areas.jsx'
 import InsightsPage from './InsightsPage/InsightsPage.jsx'
 import Calendar from './Calendar/Calendar.jsx'
+import api from './api/axios';
 
 
 
@@ -27,14 +28,8 @@ function App() {
 
     async function onLogout() {
         try {
-            const res = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/auth/logout`,
-                {
-                    method: 'POST',
-                    credentials: 'include',
-                },
-            );
-            if (res.ok) {
+            const res = await api.post('/api/auth/logout');
+            if (res.status === 200) {
                 setUser(null);
                 setLogout(true);
                 navigate('/login');
@@ -46,16 +41,9 @@ function App() {
     useEffect(() => {
         async function fetchUser() {
             try {
-                const res = await fetch(
-                    `${import.meta.env.VITE_API_URL}/api/auth/me`,
-                    {
-                        method: 'GET',
-                        credentials: 'include',
-                    },
-                );
-                if (res.ok) {
-                    const data = await res.json();
-                    setUser(data.user);
+                const res = await api.get('/api/auth/me');
+                if (res.status === 200) {
+                    setUser(res.data.user);
                 } else {
                     setUser(null);
                 }

@@ -3,6 +3,7 @@ import { useState, useEffect   } from 'react';
 import { useNavigate,Navigate } from 'react-router-dom';
 import { useRef } from 'react';
 import DonutChart from '../DonutChart/DonutChart.jsx';
+import api from '../api/axios';
 
 
 
@@ -27,13 +28,9 @@ export default function Dashboard({ user }) {
 useEffect(() => {
         async function fetchTimeLogs() {
             try {
-                const response = await fetch('http://localhost:3000/api/timelogs', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setTimeLogsAlltime(data.timeLogs);
+                const response = await api.get('/api/timelogs');
+                if (response.status === 200) {
+                    setTimeLogsAlltime(response.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching time logs:', error);
@@ -45,13 +42,9 @@ useEffect(() => {
     useEffect(() => {
         async function fetchTimeLogs() {
             try {
-                const response = await fetch('http://localhost:3000/api/timelogs/today', {    
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setTimeLogs(data.timeLogs);
+                const response = await api.get('/api/timelogs/today');
+                if (response.status === 200) {
+                    setTimeLogs(response.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching time logs:', error);
@@ -62,13 +55,9 @@ useEffect(() => {
      useEffect(() => {
         async function fetchTimeLogs() {
             try {
-                const response = await fetch('http://localhost:3000/api/timelogs/week', {    
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setTimeLogsWeek(data.timeLogs);
+                const response = await api.get('/api/timelogs/week');
+                if (response.status === 200) {
+                    setTimeLogsWeek(response.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching time logs:', error);
@@ -79,13 +68,9 @@ useEffect(() => {
      useEffect(() => {
         async function fetchTimeLogs() {
             try {
-                const response = await fetch('http://localhost:3000/api/timelogs/month', {    
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setTimeLogsMonth(data.timeLogs);
+                const response = await api.get('/api/timelogs/month');
+                if (response.status === 200) {
+                    setTimeLogsMonth(response.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching time logs:', error);
@@ -96,13 +81,9 @@ useEffect(() => {
       useEffect(() => {
         async function fetchTimeLogs() {
             try {
-                const response = await fetch('http://localhost:3000/api/timelogs/year', {    
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setTimeLogsYear(data.timeLogs);
+                const response = await api.get('/api/timelogs/year');
+                if (response.status === 200) {
+                    setTimeLogsYear(response.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching time logs:', error);

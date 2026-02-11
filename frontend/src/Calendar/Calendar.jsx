@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { useEffect, useState, } from 'react';
 import dayjs from 'dayjs';
+import api from '../api/axios';
 
 
 
@@ -14,13 +15,9 @@ export default function Calendar() {
     useEffect(() => {
         async function fetchAlltimeData() {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/timelogs`, {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setTimeLogs(data.timeLogs);
+                const res = await api.get('/api/timelogs');
+                if (res.status === 200) {
+                    setTimeLogs(res.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching all-time data:', error);

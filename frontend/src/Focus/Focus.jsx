@@ -1,8 +1,8 @@
 import styles from './Focus.module.css';
 import { useState, useEffect  } from 'react';
 import { Navigate } from 'react-router-dom';
-
 import { Link } from 'react-router-dom';
+import api from '../api/axios';
 
 
 export default function Focus({ user, handleShowText }) {
@@ -16,13 +16,9 @@ export default function Focus({ user, handleShowText }) {
     useEffect(() => {
         async function fetchFocusItems() {
             try {
-                const response = await fetch('http://localhost:3000/api/focus', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    setNewFocus(data.focus);
+                const response = await api.get('/api/focus');
+                if (response.status === 200) {
+                    setNewFocus(response.data.focus);
                 }
             } catch (error) {
                 console.error('Error fetching focus items:', error);
@@ -33,13 +29,9 @@ export default function Focus({ user, handleShowText }) {
     useEffect(() => {
         async function fetchAreas() {
             try {
-                const response = await fetch('http://localhost:3000/api/areas', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                const data = await response.json(); 
-                if (response.ok) {
-                    setAreas(data.areas);
+                const response = await api.get('/api/areas');
+                if (response.status === 200) {
+                    setAreas(response.data.areas);
                 }
             } catch (error) {
                 console.error('Error fetching areas:', error);
@@ -53,15 +45,9 @@ export default function Focus({ user, handleShowText }) {
     async function handleCreateFocusItem(e) {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/api/focus', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, areaId: Number(areaId) }),
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setNewFocus([...newFocus, data.newFocus]);
+            const response = await api.post('/api/focus', { name, areaId: Number(areaId) });
+            if (response.status === 201 || response.status === 200) {
+                setNewFocus([...newFocus, response.data.newFocus]);
                 setName('');
                 setCreateFocusItem(false);
                 handleShowText('Focus item created successfully!');
@@ -72,12 +58,8 @@ export default function Focus({ user, handleShowText }) {
     }
     async function deleteFocusItem(id){
         try {
-            const response = await fetch(`http://localhost:3000/api/focus/${id}`, {
-                method: 'DELETE',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
+            const response = await api.delete(`/api/focus/${id}`);
+            if (response.status === 200) {
                 setNewFocus(newFocus.filter(item => item.id !== id));
                 handleShowText('Focus item deleted successfully!');
             }

@@ -5,6 +5,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 
 import BarChart from '../BarChart/BarChart.jsx';
+import api from '../api/axios';
 
 export default function InsightsPage() {
     const [weeklyData, setWeeklyData] = useState([]);
@@ -17,13 +18,9 @@ export default function InsightsPage() {
     useEffect(() => {
         async function fetchWeeklyData() {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/timelogs/week`, {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setWeeklyData(data.timeLogs);
+                const res = await api.get('/api/timelogs/week');
+                if (res.status === 200) {
+                    setWeeklyData(res.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching weekly data:', error);
@@ -35,13 +32,9 @@ export default function InsightsPage() {
     useEffect(() => {
         async function fetchAlltimeData() {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/timelogs`, {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setAlltimeData(data.timeLogs);
+                const res = await api.get('/api/timelogs');
+                if (res.status === 200) {
+                    setAlltimeData(res.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching all-time data:', error);
@@ -53,13 +46,9 @@ export default function InsightsPage() {
     useEffect(() => {
         async function fetchMonthlyData() {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/timelogs/month`, {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setMonthlyData(data.timeLogs);
+                const res = await api.get('/api/timelogs/month');
+                if (res.status === 200) {
+                    setMonthlyData(res.data.timeLogs);
                 }
             } catch (error) {
                 console.error('Error fetching monthly data:', error);
