@@ -95,11 +95,8 @@ async function getTimeLogs(req, res) {
       
         const timeLogs = await prisma.timeLog.findMany({
             where: { userId },
-            distinct : ['areaId'],
-            
             include: { area:{select: { name: true } } , focus: true },
-        
-             orderBy: { createdAt: 'desc' },
+            orderBy: { createdAt: 'desc' },
         });
         res.status(200).json({ timeLogs });
     }
@@ -368,6 +365,7 @@ async function updateareaid(req, res) {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
       
       
 module.exports = { createTimeLog, getTimeLogs, getTodayTimeLogs, getweekTimeLogs, getMonthTimeLogs, getYearTimeLogs, updateTimeLog, deleteTimeLog, updateareaid };

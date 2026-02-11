@@ -20,6 +20,8 @@ export default function Navbar({user, onLogout}) {
             <Link to ="/focus">Focus</Link>
             <Link to ="/addtimelog">Add Time Log</Link>
             <Link to ="/insights">Insights</Link>
+             <Link to ="/calendar" className={styles.dropdownLink}>Calendar</Link>
+            
             
            </div>
            <div className={styles.userSection}>
@@ -32,8 +34,10 @@ export default function Navbar({user, onLogout}) {
             <Link to ="/focus">Focus</Link>
             <Link to ="/addtimelog">Add Time Log</Link>
             <Link to ="/insights">Insights</Link>
+             <Link to ="/calendar">Calendar</Link>
             <Link to ="/areas" className={styles.dropdownLink}>Areas</Link>
             
+
 
                     <button onClick={onLogout} className={styles.dropdownLink}>Logout</button>
                 </div>

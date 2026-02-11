@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+
+.calendar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+
+.calendarCard {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+.calendarCard :global(.fc-toolbar-title) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.calendarCard :global(.fc-button) {
+    background: var(--primary-color);
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+}
+
+.calendarCard :global(.fc-button:hover) {
+    background: var(--primary-hover);
+}
+
+.calendarCard :global(.fc-button-active) {
+    background: var(--primary-hover);
+}
+
+.calendarCard :global(.fc-day-today) {
+    background: rgba(241, 99, 106, 0.05);
+}
+
+.calendarCard :global(.fc-col-header-cell) {
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0.75rem;
+}
+
+
+.calendarEvent {
+    background: var(--primary-color);
+    border: none;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    color: white;
+    font-weight: 500;
+}
+
+.calendarCard :global(.fc-event-title) {
+    color: white;
+}
+
+
+@media (max-width: 768px) {
+    .calendar {
+        padding: 1rem;
+    }
+    
+    .header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .calendarCard {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    .calendarCard :global(.fc-toolbar) {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .calendarCard :global(.fc-toolbar-chunk) {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .calendarCard :global(.fc-button) {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.875rem;
+    }
+    
+    .calendarCard :global(.fc-toolbar-title) {
+        font-size: 1.25rem;
+    }
+    
+    .calendarCard :global(.fc-col-header-cell) {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.7rem;
+    }
+    
+    .calendarCard :global(.fc-daygrid-day-number) {
+        font-size: 0.875rem;
+    }
+    
+    .calendarEvent {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
