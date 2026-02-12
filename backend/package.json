@@ -15,6 +15,7 @@
     "bcrypt": "^6.0.0",
     "cookie-session": "^2.1.1",
     "cors": "^2.8.6",
+    "dayjs": "^1.11.19",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "express-session": "^1.19.0",

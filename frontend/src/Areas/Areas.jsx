@@ -96,6 +96,11 @@ async function transferAndDelete(id, newAreaId){
         console.error('Error transferring area:', error);
     }
 }
+function turnMinutesToHours(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}m`;
+}
 
 
       
@@ -111,7 +116,7 @@ async function transferAndDelete(id, newAreaId){
         {Object.values(timeLogs.reduce(handleareaduration, {})).map((area) => (
             <div key={area.areaId} className={styles.areaCard}>
                 <h2>{area.name}</h2>
-                <p>Total Time Spent: {area.duration} minutes</p>
+                <p>Total Time Spent: {turnMinutesToHours(area.duration)}</p>
                 <button className={styles.editButton} onClick={() => toggleEdit(area.areaId)}>Edit</button>
                 <button className={styles.deleteButton} onClick={() => handleDeleteConfirm(area.areaId)}>Delete</button>
                 {deleteconfirm === area.areaId ? (

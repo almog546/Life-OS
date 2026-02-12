@@ -10,6 +10,7 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DonutChart({ timeLogs }) {
+    const minutesToHours = (minutes) => Number((minutes / 60).toFixed(1));
     const areaDurations = timeLogs.reduce((acc, log) => {
         const areaName = log.area.name;
         if (!acc[areaName]) {
@@ -22,8 +23,8 @@ export default function DonutChart({ timeLogs }) {
         labels: Object.keys(areaDurations),
         datasets: [
             {
-                label: 'Time Spent (minutes)',
-                data: Object.values(areaDurations),
+                label: 'Time Spent (hours)',
+                data: Object.values(areaDurations).map(minutesToHours),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(54, 162, 235, 0.6)',

@@ -231,6 +231,9 @@ export default function InsightsPage() {
     function totalDuration(logs) {
         return logs.reduce((total, log) => total + log.duration, 0);
     }
+    function minutesToHours(minutes) {
+        return Number((minutes / 60).toFixed(1));
+    }
     function averageAttentionLevel(logs) {
         const totalAttention = logs.reduce((total, log) => total + log.attentionLevel, 0);
         return (totalAttention / logs.length).toFixed(1);
@@ -286,8 +289,8 @@ export default function InsightsPage() {
     const labels = ['Last Week', 'This Week'];
     const datasets = [
         {
-            label: 'Total Duration (minutes)',
-            data: [lastweekDuration, thisweekDuration],
+            label: 'Total Duration (hours)',
+            data: [minutesToHours(lastweekDuration), minutesToHours(thisweekDuration)],
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
@@ -300,7 +303,7 @@ export default function InsightsPage() {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Duration (minutes)',
+                    text: 'Duration (hours)',
                 },
             },
         },
@@ -374,8 +377,8 @@ export default function InsightsPage() {
     const monthLabels = ['Last Month', 'This Month'];
     const monthDatasets = [
         {
-            label: 'Total Duration (minutes)',
-            data: [lastmonthDuration, thismonthDuration],
+            label: 'Total Duration (hours)',
+            data: [minutesToHours(lastmonthDuration), minutesToHours(thismonthDuration)],
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
@@ -388,7 +391,7 @@ export default function InsightsPage() {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Duration (minutes)',
+                    text: 'Duration (hours)',
                 },
             },
         },
