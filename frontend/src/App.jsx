@@ -73,7 +73,7 @@ if (loading) {
   return (
     <>
     {showText && <div className="globalToast">{showText}</div>}
-        <Navbar user={user} onLogout={onLogout} />
+        <Navbar user={user}   onLogout={onLogout} />
     
     <Routes>
       <Route path="/signup" element={<Signup  user={user} handleShowText={handleShowText} />} />

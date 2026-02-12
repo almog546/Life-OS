@@ -25,7 +25,7 @@ export default function Navbar({user, onLogout}) {
             
            </div>
            <div className={styles.userSection}>
-            <span className={styles.userName} onClick={handleToggleMenu}>Hello, {user.name} </span>
+            <span className={styles.userName} onClick={handleToggleMenu}>Hello </span>
             {toggleMenu && (
                 <div className={styles.dropdownMenu}>
                     <Link to ="/areas" className={styles.dropdownLink}>Areas</Link>

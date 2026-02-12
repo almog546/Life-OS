@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -23,7 +24,7 @@ app.use(
     cookie: {
       httpOnly: true,
       sameSite: 'none', 
-      secure: true,     
+      secure: process.env.NODE_ENV === 'production',     
     },
   })
 );
