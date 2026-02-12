@@ -69,7 +69,7 @@ async function createTimeLogChange(e) {
             energyAfter: energyAfter ? Number(energyAfter) : undefined,
             attentionLevel: attentionLevel ? Number(attentionLevel) : undefined
         });
-        if (response.status === 200) {
+        if (response.status === 201 || response.status === 200) {
             const data = response.data;
            setTimeLogs(prev => [...prev, data.newTimeLog]);
             handleShowText('Time log created successfully!');
