@@ -77,7 +77,7 @@ if (loading) {
     
     <Routes>
       <Route path="/signup" element={<Signup  user={user} handleShowText={handleShowText} />} />
-      <Route path="/login" element={<Login user={user} handleShowText={handleShowText} />} />
+      <Route path="/login" element={<Login user={user} setUser={setUser} handleShowText={handleShowText} />} />
         <Route path="/" element={<Home user={user} handleShowText={handleShowText} />} />
         <Route path="/focus" element={<Focus user={user} handleShowText={handleShowText} />} />
         <Route path="/dashboard" element={<Dashboard user={user} handleShowText={handleShowText} />} />

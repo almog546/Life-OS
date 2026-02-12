@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import api from '../api/axios';
-export default function Login({user, handleShowText}) {
+export default function Login({user, setUser, handleShowText}) {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +20,8 @@ export default function Login({user, handleShowText}) {
                 throw new Error(response.data?.message || 'Login failed');
             }
             handleShowText('Login successful!');
-            navigate('/');
+            setUser(response.data.user);
+                navigate('/');
         }
         catch (err) {
             setError(err.message);
