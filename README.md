@@ -6,7 +6,7 @@ The goal of the project was not just to log hours — but to create meaningful i
 
  **Live Demo:** [https://life-os-phi-steel.vercel.app/](https://life-os-phi-steel.vercel.app/)
 
-![Dashboard View](Dashboard.jpg)
+![Dashboard View](Dashboard.png)
 
 ---
 
@@ -32,7 +32,7 @@ Life-OS is designed more like a personal analytics system than a task manager.
 * Attention level tracking.
 * Optional description.
 
-### 📊 Insights Dashboard
+###  Insights Dashboard
 The Insights system analyzes logged data and provides:
 * Total Time (current vs previous period).
 * Time by Area.
@@ -41,13 +41,13 @@ The Insights system analyzes logged data and provides:
 
 > **Note:** All aggregation logic is implemented manually using `Array.reduce()` and date handling with `dayjs`.
 
-![Insights View](Insights.jpg)
+![Insights View](Insights.png)
 
 ###  Calendar View
 * Monthly visual overview.
 * Aggregated daily duration.
 
-![Calendar View](Calendar.jpg)
+![Calendar View](Calendar.png)
 
 ###  Comparison Mode
 The system compares:
@@ -58,7 +58,7 @@ The idea is to measure improvement without overcomplicating the UI.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Frontend | Backend | Deployment |
 | :--- | :--- | :--- |
