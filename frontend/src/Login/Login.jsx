@@ -59,6 +59,7 @@ export default function Login({user, setUser, handleShowText}) {
                 <button type="button" onClick={handleDemoLogin} >
                     Demo Login
                 </button>
+                <p className={styles.demoInfo}>Read-only mode for demo users</p>
                 {error && <p className={styles.error}>{error}</p>}
             </form>
        
