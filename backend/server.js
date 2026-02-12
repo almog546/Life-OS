@@ -8,9 +8,10 @@ app.set('trust proxy', 1);
 app.use(express.json());
 
 app.use(cors({
-  origin: "https://life-os-phi-steel.vercel.app",
+  origin: true,
   credentials: true
 }));
+
 
 
 app.use(
