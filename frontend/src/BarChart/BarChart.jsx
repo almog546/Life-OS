@@ -8,20 +8,9 @@ import {
   Legend,
 } from 'chart.js';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-export default function BarChart({
-  labels,
-  datasets,
-  options,
-  height = 300,
-}) {
+export default function BarChart({ labels, datasets, options, height = 300 }) {
   const data = {
     labels,
     datasets,

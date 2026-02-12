@@ -66,7 +66,7 @@ function logout(req, res) {
             return res.status(500).json({ error: 'Failed to logout' });
         }
 
-        res.clearCookie('connect.sid');
+        res.clearCookie('sid');
         res.status(200).json({ message: 'Logout successful' });
     });
 }

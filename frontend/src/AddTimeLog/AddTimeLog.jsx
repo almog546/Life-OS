@@ -1,6 +1,7 @@
 import styles from './AddTimeLog.module.css';
 import { useState, useEffect  } from 'react';
 import { Navigate } from 'react-router-dom';
+import api from "../api/axios";
 
 
 export default function AddTimeLog({ user, handleShowText }) {
@@ -19,30 +20,23 @@ const [attentionLevel, setAttentionLevel] = useState('');
 useEffect(() => {
     async function fetchTimeLogs() {
         try {
-            const response = await fetch('http://localhost:3000/api/timelogs', {    
-                method: 'GET',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setTimeLogs(data.timeLogs);
+            const response = await api.get('/api/timelogs');
+            if (response.status === 200) {
+                setTimeLogs(response.data.timeLogs);
             }
         } catch (error) {
             console.error('Error fetching time logs:', error);
         }
     }
+           
     fetchTimeLogs();
 }, []);
 useEffect(() => {
     async function fetchAreas() {
         try {
-            const response = await fetch('http://localhost:3000/api/areas', {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setAreas(data.areas);
+            const response = await api.get('/api/areas');
+            if (response.status === 200) {
+                setAreas(response.data.areas);
             }
         } catch (error) {
             console.error('Error fetching areas:', error);
@@ -53,13 +47,9 @@ useEffect(() => {
 useEffect(() => {
     async function fetchFocusItems() {
         try {
-            const response = await fetch('http://localhost:3000/api/focus', {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (response.ok) {
-                setFocusItems(data.focus);
+            const response = await api.get('/api/focus');
+            if (response.status === 200) {
+                setFocusItems(response.data.focus);
             }
         } catch (error) {
             console.error('Error fetching focus items:', error);
@@ -70,14 +60,17 @@ useEffect(() => {
 async function createTimeLogChange(e) {
     e.preventDefault();
     try{
-        const response = await fetch('http://localhost:3000/api/timelogs', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({duration: Number(duration), focusId: focusId ? Number(focusId) : undefined, areaId: Number(areaId), description, energyBefore: energyBefore ? Number(energyBefore) : undefined, energyAfter: energyAfter ? Number(energyAfter) : undefined, attentionLevel: attentionLevel ? Number(attentionLevel) : undefined }),
-            credentials: 'include',
+        const response = await api.post('/api/timelogs', {
+            duration: Number(duration),
+            focusId: focusId ? Number(focusId) : undefined,
+            areaId: Number(areaId),
+            description,
+            energyBefore: energyBefore ? Number(energyBefore) : undefined,
+            energyAfter: energyAfter ? Number(energyAfter) : undefined,
+            attentionLevel: attentionLevel ? Number(attentionLevel) : undefined
         });
-        const data = await response.json();
-        if (response.ok) {
+        if (response.status === 200) {
+            const data = response.data;
             setTimeLogs([...timeLogs, data.newTimeLog]);
             handleShowText('Time log created successfully!');
             setDuration('');

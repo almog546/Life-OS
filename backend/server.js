@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -15,16 +16,19 @@ app.use(cors({
 
 
 
+const isProduction = process.env.NODE_ENV === 'production';
+const sessionSecret = process.env.SESSION_SECRET || 'dev-secret';
+
 app.use(
   session({
     name: 'sid',
-    secret: process.env.SESSION_SECRET,
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      sameSite: 'none', 
-      secure: process.env.NODE_ENV === 'production',     
+      sameSite: isProduction ? 'none' : 'lax',
+      secure: isProduction,
     },
   })
 );
