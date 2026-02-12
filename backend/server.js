@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const session = require('express-session');
+const blockDemoWrites = require("./middlewares/blockDemoWrites");
+
 
 app.set('trust proxy', 1);
 
@@ -30,6 +32,8 @@ app.use(
     },
   })
 );
+
+app.use(blockDemoWrites);
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/areas', require('./routes/areaRoutes'));

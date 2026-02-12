@@ -211,11 +211,7 @@ useEffect(() => {
                     const mins = minutes % 60;
                     return `${hrs} hrs ${mins} mins`;
                 }
-                function turnMinutesToHours(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
-}
+              
 
 
 

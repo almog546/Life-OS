@@ -28,6 +28,11 @@ export default function Login({user, setUser, handleShowText}) {
         }   
         setLoading(false);
     }
+    const handleDemoLogin = async () => {
+  await api.post('/api/auth/demo-login');
+  window.location.href = '/';
+};
+
 
     return (
         <>
@@ -50,6 +55,9 @@ export default function Login({user, setUser, handleShowText}) {
                 />
                 <button type="submit" disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
+                </button>
+                <button type="button" onClick={handleDemoLogin} >
+                    Demo Login
                 </button>
                 {error && <p className={styles.error}>{error}</p>}
             </form>
