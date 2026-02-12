@@ -39,22 +39,27 @@ function App() {
         }
     }
     useEffect(() => {
-        async function fetchUser() {
-            try {
-                const res = await api.get('/api/auth/me');
-                if (res.status === 200) {
-                    setUser(res.data.user);
-                } else {
-                    setUser(null);
-                }
-            } catch (error) {
+    async function fetchUser() {
+        try {
+            const res = await api.get('/api/auth/me');
+            if (res.status === 200) {
+                setUser(res.data.user);
+            } else {
                 setUser(null);
-            } finally {
-                setLoading(false);
             }
+        } catch (error) {
+            setUser(null);
+        } finally {
+            setLoading(false);
         }
-        fetchUser();
-    }, [location]);
+    }
+
+    fetchUser();
+}, []);
+if (loading) {
+    return <div>Loading...</div>;
+}
+
 
     function handleShowText(text) {
         setShowText(text);
