@@ -71,7 +71,7 @@ async function createTimeLogChange(e) {
         });
         if (response.status === 200) {
             const data = response.data;
-            setTimeLogs([...timeLogs, data.newTimeLog]);
+           setTimeLogs(prev => [...prev, data.newTimeLog]);
             handleShowText('Time log created successfully!');
             setDuration('');
             setFocusId('');
